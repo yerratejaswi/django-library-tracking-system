@@ -31,6 +31,7 @@ class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = ['id', 'user', 'user_id', 'membership_date']
+        read_only_fields = ['loan_date', 'due_date']
 
 class LoanSerializer(serializers.ModelSerializer):
     book = BookSerializer(read_only=True)

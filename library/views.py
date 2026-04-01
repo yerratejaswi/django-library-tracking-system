@@ -52,3 +52,20 @@ class MemberViewSet(viewsets.ModelViewSet):
 class LoanViewSet(viewsets.ModelViewSet):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
+
+    def create(self,request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid (raise_exception=True)
+        loan = serializer.save()
+
+        send_loan_notification.delay(loan.id)
+
+        return Response(
+            LoanSerializer(loan).data,
+            status = status.HTTP_201_CREATED
+
+        )
+    
+    @action(detail=True, methods=['post'])
+    def exten_due_date(self,request, pk=None):
+        loan = self.get_object()
