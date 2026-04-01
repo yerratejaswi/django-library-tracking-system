@@ -62,15 +62,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'library_system.wsgi.application'
 
-# Database
+# # Database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('POSTGRES_DB', 'library_db'),
+#         'USER': os.getenv('POSTGRES_USER', 'library_user'),
+#         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'library_password'),
+#         'HOST': os.getenv('DB_HOST', 'db'),
+#         'PORT': os.getenv('DB_PORT', '5432'),
+#     }
+# }
+
+
+#Database:
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'library_db'),
-        'USER': os.getenv('POSTGRES_USER', 'library_user'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'library_password'),
-        'HOST': os.getenv('DB_HOST', 'db'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
